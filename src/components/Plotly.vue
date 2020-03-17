@@ -35,7 +35,11 @@ export default {
     };
   },
   mounted() {
-    Plotly.newPlot(this.$el, this.data, this.innerLayout, this.options);
+    Plotly.newPlot(this.$el, this.data, this.innerLayout, this.options).then(gd => {
+      gd.on('plotly_legendclick', () => {
+        return false;
+      })
+    });
     events.forEach(evt => {
       this.$el.on(evt.completeName, evt.handler(this));
     });
